@@ -1,69 +1,126 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { FadeIn } from "@/components/FadeIn";
+import { Hero } from "@/components/Hero";
+import { PhotoGallery } from "@/components/PhotoGallery";
+import { ProjectHighlight } from "@/components/ProjectHighlight";
+import { ReflectionSection } from "@/components/ReflectionSection";
+import { SectionHeading } from "@/components/SectionHeading";
+import { WeeklyJournalCard } from "@/components/WeeklyJournalCard";
+import { homeHighlights, siteConfig } from "@/data/internship";
+import { weeks } from "@/data/weeks";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <>
+      <Hero />
+
+      <section className="section-space border-b border-border">
+        <div className="container-page">
+          <FadeIn>
+            <SectionHeading
+              eyebrow="The Internship"
+              title="Seven weeks of learning by doing."
+              description={`${siteConfig.owner} trained at ${siteConfig.company} as a student intern from ${siteConfig.university}, documenting technical and computer services work from the first familiarization day through remaining hours at zero.`}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </FadeIn>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {homeHighlights.map((item, index) => (
+              <FadeIn key={item.label} delayMs={index * 60}>
+                <div className="rounded-[var(--radius)] border border-border bg-surface px-5 py-6">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 font-heading text-2xl text-foreground">
+                    {item.value}
+                  </p>
+                  <p className="mt-2 text-sm text-secondary">{item.detail}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="section-space border-b border-border">
+        <div className="container-page">
+          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeading
+              eyebrow="My Journey"
+              title="Week by week in the workshop."
+              description="Each entry follows the weekly accomplishment reports — activities, challenges, and lessons without invented drama."
+            />
+            <Link
+              href="/journey"
+              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              Full timeline
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            {weeks.slice(0, 4).map((week) => (
+              <FadeIn key={week.id}>
+                <WeeklyJournalCard week={week} />
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-space border-b border-border">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="Projects & Skills"
+            title="Experience built through practice."
+            description="Assembly, diagnostics, printers, software, customer support, and deployments — the work that filled the log."
+          />
+          <ProjectHighlight />
+        </div>
+      </section>
+
+      <section className="section-space border-b border-border">
+        <div className="container-page">
+          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeading
+              eyebrow="Photo Journal"
+              title="Behind every build."
+              description="Sixty-six photos from the internship floor, field deliveries, and workshop days."
+            />
+            <Link
+              href="/photos"
+              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-accent"
+            >
+              Open gallery
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+          <PhotoGallery showFilters={false} limit={9} />
+        </div>
+      </section>
+
+      <section className="section-space">
+        <div className="container-page">
+          <div className="mb-10 grid items-center gap-8 lg:grid-cols-[1fr_0.9fr]">
+            <SectionHeading
+              eyebrow="Reflections"
+              title="More than just technical skills."
+              description="Themes drawn from real days on the job — patience, teamwork, clear explanations, and the operations behind every fix."
+            />
+            <div className="relative aspect-[5/4] overflow-hidden rounded-[var(--radius)] border border-border">
+              <Image
+                src="/images/internship/2026-07-15_forty-pc-complete-day24.jpg"
+                alt="Completed deployment units ready after team assembly"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+            </div>
+          </div>
+          <ReflectionSection compact />
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Build Log
 
-## Getting Started
+Personal internship blog for **Carl R. Torion** — documenting on-the-job training at **Miles Computer Ventures** (June 15 – August 1, 2026).
 
-First, run the development server:
+Built with **Next.js 16**, **React 19**, **Tailwind CSS 4**, and **TypeScript**. Content is local structured data only (no database or auth).
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Routes
 
-## Learn More
+| Path | Page |
+| --- | --- |
+| `/` | Homepage |
+| `/journey` | Timeline + weekly cards |
+| `/journey/[slug]` | Full weekly article |
+| `/projects` | Skills & practice areas |
+| `/photos` | Filtered photo gallery + lightbox |
+| `/about` | About Carl |
+| `/reflections` | Reflections |
 
-To learn more about Next.js, take a look at the following resources:
+## Adding photos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Place images in `public/images/internship/`.
+2. Prefer dated filenames, e.g. `2026-06-15_utp-rj45-cable-prep.jpg`.
+3. Register each photo in `src/data/gallery.ts` with `id`, `src`, `alt`, `date`, and `category`.
+4. Optionally attach paths to a week via `galleryImages` / `coverImage` in `src/data/weeks.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Categories: `Computer Builds` | `Troubleshooting` | `Printer Setup` | `Workdays` | `Team & Workplace` | `Deployments`.
+
+## Editing journal entries
+
+- Site meta & nav: `src/data/internship.ts`
+- Weekly stories: `src/data/weeks.ts`
+- Skills sections: `src/data/skills.ts`
+- Gallery: `src/data/gallery.ts`
+
+Keep prose first-person and tied to real OJT report facts.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this repo to GitHub (or import the folder in the Vercel dashboard).
+2. Create a new Vercel project and select the repository.
+3. Framework preset: **Next.js** (defaults are fine).
+4. Deploy. No environment variables are required for the static content site.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or from the CLI:
+
+```bash
+npx vercel
+```
+
+## Package
+
+`package.json` name: `the-build-log`.
