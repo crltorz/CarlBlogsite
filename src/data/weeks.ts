@@ -215,9 +215,6 @@ export const weeks: WeekEntry[] = [
       `${IMG}/2026-07-09_deployment-build-day19.jpg`,
       `${IMG}/2026-07-09_desktop-units-day19.jpg`,
       `${IMG}/2026-07-10_deployment-day20.jpg`,
-      `${IMG}/2026-07-11_assembly-quota-day21.jpg`,
-      `${IMG}/2026-07-11_component-prep.jpg`,
-      `${IMG}/2026-07-11_workshop-progress.jpg`,
     ],
   },
   {
